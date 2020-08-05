@@ -1,20 +1,22 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    all.sh                                             :+:      :+:    :+:    #
+#    folders.sh                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/08/05 11:44:23 by blinnea           #+#    #+#              #
-#    Updated: 2020/08/05 11:45:44 by blinnea          ###   ########.fr        #
+#    Created: 2020/08/05 19:54:55 by blinnea           #+#    #+#              #
+#    Updated: 2020/08/05 19:54:57 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/zsh
 
-# Location of all my scripts
-SCR_LOC=https://raw.githubusercontent.com/azariiva/kushCurl/master/scripts
+mkdir -p /goinfre/$USER
+mkdir -p /goinfre/$USER/{Downloads, Screenshots}
+mkdir -p /goinfre/$USER/Downloads/{Chrome, Slack, Telegram}
+mkdir -p $HOME/Social
+ln -sf /Applications/Slack.app $HOME/Social/Slack
+ln -sf $HOME/Applications/Telegram.app $HOME/Social/Telegram
 
-curl -fsSL $SCR_LOC/brew.sh | zsh
-curl -fsSl $SCR_LOC/etc.sh | zsh
-curl -fsSl $SCR_LOC/telegram.sh | zsh
+

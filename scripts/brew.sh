@@ -1,7 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    brew.sh                                            :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/08/05 11:44:34 by blinnea           #+#    #+#              #
+#    Updated: 2020/08/05 19:59:26 by blinnea          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 #!/bin/zsh
 
 # Create installation path
-IPATH=/goinfre/$USER/.$USER/
+IPATH=/goinfre/$USER/
 mkdir -p $IPATH
 
 # Delete and reinstall Homebrew from Github repo
