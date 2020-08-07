@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/05 11:44:29 by blinnea           #+#    #+#              #
-#    Updated: 2020/08/07 18:51:01 by blinnea          ###   ########.fr        #
+#    Updated: 2020/08/07 18:59:41 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,10 @@ CurlHome="https://raw.githubusercontent.com/azariiva/kushCurl/master"
 
 function EnablePluginsZSH {
 	local tag="# Load ZSH Plugins"
-	local plug_list="z web-search zsh-autosuggestions colored-man-pages colorize common-aliases copyfile"
 
-	if ! grep -q $tag
+	if ! grep -q $tag $HOME/.zshrc
 	then
-	printf "\n%s\n%s\n" $tag plugins=($plug_list)
+	printf "\n%s\n%s\n" $tag "plugins=(z web-search zsh-autosuggestions colored-man-pages colorize common-aliases copyfile)" >> $HOME/.zshrc
 	fi
 }
 
@@ -51,7 +50,7 @@ function InstallBrew {
 }
 
 function WriteAliases {
-	if ! grep -q '# My own aliases'
+	if ! grep -q '# My own aliases' $HOME/.zshrc
 	then
 		curl -fsS $CurlHome/src/brewconfig.zsh >>  $HOME/.zshrc
 	fi
@@ -79,8 +78,8 @@ function CreateLinks {
 
 function CreateDirectories {
 	mkdir -p /goinfre/$USER
-	mkdir -p /goinfre/$USER/{Downloads, Screenshots}
-	mkdir -p /goinfre/$USER/Downloads/{Chrome, Slack, Telegram}
+	mkdir -p /goinfre/$USER/{Downloads,Screenshots}
+	mkdir -p /goinfre/$USER/Downloads/{Chrome,Slack,Telegram}
 	mkdir -p $HOME/Social
 }
 
