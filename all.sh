@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/05 11:44:29 by blinnea           #+#    #+#              #
-#    Updated: 2020/08/07 19:30:26 by blinnea          ###   ########.fr        #
+#    Updated: 2020/08/07 19:36:07 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ function InstallBrew {
 	/goinfre/blinnea/.brew/bin/brew install python3
 	/goinfre/blinnea/.brew/bin/brew install htop
 	/goinfre/blinnea/.brew/bin/brew install --HEAD https://raw.githubusercontent.com/LouisBrunner/valgrind-macos/master/valgrind.rb
-	/goinfre/blinnea/.brew/bin/brew link valgrind
+	/goinfre/blinnea/.brew/bin/brew unlink valgrind & /goinfre/blinnea/.brew/bin/brew link valgrind
 	rm -rf $(/goinfre/blinnea/.brew/bin/brew --cache)
 }
 
