@@ -5,16 +5,89 @@
 #                                                     +:+ +:+         +:+      #
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/08/05 11:44:23 by blinnea           #+#    #+#              #
-#    Updated: 2020/08/05 11:45:44 by blinnea          ###   ########.fr        #
+#    Created: 2020/08/05 11:44:29 by blinnea           #+#    #+#              #
+#    Updated: 2020/08/07 18:51:01 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/zsh
 
-# Location of all my scripts
-SCR_LOC=https://raw.githubusercontent.com/azariiva/kushCurl/master/scripts
+CurlHome="https://raw.githubusercontent.com/azariiva/kushCurl/master"
 
-curl -fsSL $SCR_LOC/brew.sh | zsh
-curl -fsSl $SCR_LOC/etc.sh | zsh
-curl -fsSl $SCR_LOC/telegram.sh | zsh
+function EnablePluginsZSH {
+	local tag="# Load ZSH Plugins"
+	local plug_list="z web-search zsh-autosuggestions colored-man-pages colorize common-aliases copyfile"
+
+	if ! grep -q $tag
+	then
+	printf "\n%s\n%s\n" $tag plugins=($plug_list)
+	fi
+}
+
+function InstallBrew {
+	local IPATH=/goinfre/$USER/
+	local mkdir -p $IPATH
+
+	if ! command -v brew
+	then
+		rm -rf $HOME/.brew
+		rm -rf $IPATH/.brew
+		git clone --depth=1 https://github.com/Homebrew/brew $IPATH/.brew
+		curl -o $IPATH/.brewconfig CurlHome/src/brewconfig.zsh
+		if ! grep -q "# Load Homebrew config script" $HOME/.zshrc
+		then
+			printf "%s\n%s\n" "# Load Homebrew config script" "source $IPATH/.brewconfig.zsh"
+		fi
+		source $IPATH/.brewconfig.zsh
+		rehash
+		brew update
+		echo "\nPlease open a new shell to finish installation"
+	fi
+	omz update
+	brew install python3
+	brew install htop
+	brew install --HEAD" "https://raw.githubusercontent.com/LouisBrunner/valgrind-macos/master/valgrind.rb
+	rm -rf $(brew --cache)
+}
+
+function WriteAliases {
+	if ! grep -q '# My own aliases'
+	then
+		curl -fsS $CurlHome/src/brewconfig.zsh >>  $HOME/.zshrc
+	fi
+}
+
+function InstallTelegram {
+	local IPATH=$HOME/Applications
+	local DPATH=/tmp/$USER
+
+	if [ ! -d $IPATH/Telegram.app ]
+	then
+		curl -L https://telegram.org/dl/desktop/mac --output $DPATH/tsetup.dmg
+		VOLUME=$(hdiutil attach tsetup.dmg | tail -1 | awk '{$1=$2=""; print $0}' | sed -e 's/^[[:space:]]*//')
+		cp -r $VOLUME/*.app $IPATH
+		diskutil unmount $VOLUME &>/dev/null
+		ln -sf $IPATH/Telegram.app ~/Desktop
+		rm -f $DPATH/tsetup.dmg
+	fi
+}
+
+function CreateLinks {
+	ln -sf /Applications/Slack.app $HOME/Social/Slack
+	ln -sf $HOME/Applications/Telegram.app $HOME/Social/Telegram
+}
+
+function CreateDirectories {
+	mkdir -p /goinfre/$USER
+	mkdir -p /goinfre/$USER/{Downloads, Screenshots}
+	mkdir -p /goinfre/$USER/Downloads/{Chrome, Slack, Telegram}
+	mkdir -p $HOME/Social
+}
+
+CreateDirectories
+EnablePluginsZSH
+InstallTelegram
+CreateLinks
+InstallBrew
+WriteAliases
+EnablePluginsZSH
