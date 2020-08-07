@@ -1,19 +1,9 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    .brewconfig.zsh                                    :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/08/07 13:53:40 by blinnea           #+#    #+#              #
-#    Updated: 2020/08/07 13:53:59 by blinnea          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 # HOMEBREW CONFIG
 
+IPATH=/goinfre/$USER
+
 # Add brew to path
-export PATH=$IPATH/.brew/bin:\$PATH
+export PATH=$IPATH/.brew/bin:$PATH
 
 # Set Homebrew temporary folders
 export HOMEBREW_CACHE=/tmp/\$USER/Homebrew/Caches

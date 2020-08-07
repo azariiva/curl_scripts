@@ -6,7 +6,7 @@
 #    By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/05 11:44:29 by blinnea           #+#    #+#              #
-#    Updated: 2020/08/07 18:59:41 by blinnea          ###   ########.fr        #
+#    Updated: 2020/08/07 19:30:26 by blinnea          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,29 +24,29 @@ function EnablePluginsZSH {
 }
 
 function InstallBrew {
-	local IPATH=/goinfre/$USER/
-	local mkdir -p $IPATH
+	local IPATH=/goinfre/$USER
 
+	mkdir -p $IPATH
 	if ! command -v brew
 	then
-		rm -rf $HOME/.brew
-		rm -rf $IPATH/.brew
+		# rm -rf $HOME/.brew
+		# rm -rf $IPATH/.brew
 		git clone --depth=1 https://github.com/Homebrew/brew $IPATH/.brew
-		curl -o $IPATH/.brewconfig CurlHome/src/brewconfig.zsh
+		curl -fsSLo $HOME/.brewconfig.zsh $CurlHome/src/brewconfig.zsh
 		if ! grep -q "# Load Homebrew config script" $HOME/.zshrc
 		then
 			printf "%s\n%s\n" "# Load Homebrew config script" "source $IPATH/.brewconfig.zsh"
 		fi
-		source $IPATH/.brewconfig.zsh
+		source $HOME/.brewconfig.zsh
 		rehash
 		brew update
 		echo "\nPlease open a new shell to finish installation"
 	fi
-	omz update
-	brew install python3
-	brew install htop
-	brew install --HEAD" "https://raw.githubusercontent.com/LouisBrunner/valgrind-macos/master/valgrind.rb
-	rm -rf $(brew --cache)
+	/goinfre/blinnea/.brew/bin/brew install python3
+	/goinfre/blinnea/.brew/bin/brew install htop
+	/goinfre/blinnea/.brew/bin/brew install --HEAD https://raw.githubusercontent.com/LouisBrunner/valgrind-macos/master/valgrind.rb
+	/goinfre/blinnea/.brew/bin/brew link valgrind
+	rm -rf $(/goinfre/blinnea/.brew/bin/brew --cache)
 }
 
 function WriteAliases {
@@ -87,6 +87,6 @@ CreateDirectories
 EnablePluginsZSH
 InstallTelegram
 CreateLinks
-InstallBrew
 WriteAliases
 EnablePluginsZSH
+InstallBrew
